@@ -4,12 +4,17 @@ import (
 	"TRCAPI/api"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"runtime"
 	"strconv"
 )
 
 var Token = "hiseven"
 
 func main()  {
+	if runtime.GOOS == "linux" {
+		api.DTRCNodeAPI.NodeAddr = "http://127.0.0.1:8090"
+		gin.SetMode(gin.ReleaseMode)
+	}
 	r := gin.Default()
 	r.GET("/getTransInfo", GetTransInfoAPI)
 	r.GET("/getNowBlockNum", GetNowBlockNumAPI)

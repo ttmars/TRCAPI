@@ -12,12 +12,8 @@ type TRCNodeAPI struct {
 	NodeAddr string
 }
 
-//var DTRCNodeAPI = TRCNodeAPI{
-//	NodeAddr: "http://34.87.43.172:8090",
-//}
-
 var DTRCNodeAPI = TRCNodeAPI{
-	NodeAddr: "http://127.0.0.1:8090",
+	NodeAddr: "http://34.87.43.172:8090",
 }
 
 func (obj *TRCNodeAPI)GetBlockByLimitNext(startNum int64, endNum int64) (*GetBlockByLimitNextStruct,error) {
