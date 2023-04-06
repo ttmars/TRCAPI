@@ -29,3 +29,14 @@ func TestTRCNodeAPI_GetTransInfo(t *testing.T) {
 	}
 	fmt.Println("交易数量：", len(r))
 }
+
+func TestHexStringToBase58check(t *testing.T) {
+	//HexString := "41E552F6487585C2B58BC2C9BB4492BC1F17132CD0"
+	HexString := "41e552f6487585c2b58bc2c9bb4492bc1f17132cd0"
+	Base58check := HexStringToBase58check(HexString)
+	HS := Base58checkToHexString(Base58check)
+	if HexString != HS {
+		t.Error("test fail!")
+	}
+	fmt.Println(HS)
+}

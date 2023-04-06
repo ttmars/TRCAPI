@@ -21,6 +21,10 @@ func main()  {
 	r.Run(":12345") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
+func test()  {
+
+}
+
 func GetNowBlockNumAPI(c *gin.Context)  {
 	r,err := api.DTRCNodeAPI.GetNowBlockNum()
 	if err != nil {

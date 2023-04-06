@@ -1,5 +1,99 @@
 package api
 
+type GetAssetIssueListStruct struct {
+	AssetIssue []struct {
+		OwnerAddress string `json:"owner_address"`
+		Name         string `json:"name"`
+		Abbr         string `json:"abbr,omitempty"`
+		TotalSupply  int64  `json:"total_supply"`
+		TrxNum       int    `json:"trx_num"`
+		Num          int    `json:"num"`
+		StartTime    int64  `json:"start_time"`
+		EndTime      int64  `json:"end_time"`
+		Description  string `json:"description"`
+		URL          string `json:"url"`
+		ID           string `json:"id"`
+		FrozenSupply []struct {
+			FrozenAmount int `json:"frozen_amount"`
+			FrozenDays   int `json:"frozen_days"`
+		} `json:"frozen_supply,omitempty"`
+		PublicLatestFreeNetTime int `json:"public_latest_free_net_time,omitempty"`
+		VoteScore               int `json:"vote_score,omitempty"`
+		FreeAssetNetLimit       int `json:"free_asset_net_limit,omitempty"`
+		PublicFreeAssetNetLimit int `json:"public_free_asset_net_limit,omitempty"`
+		Precision               int `json:"precision,omitempty"`
+	} `json:"assetIssue"`
+}
+
+type GetAccountResourceStruct struct {
+	FreeNetUsed  int `json:"freeNetUsed"`
+	FreeNetLimit int `json:"freeNetLimit"`
+	NetUsed      int `json:"NetUsed"`
+	NetLimit     int `json:"NetLimit"`
+	AssetNetUsed []struct {
+		Key   string `json:"key"`
+		Value int    `json:"value"`
+	} `json:"assetNetUsed"`
+	AssetNetLimit []struct {
+		Key   string `json:"key"`
+		Value int    `json:"value"`
+	} `json:"assetNetLimit"`
+	TotalNetLimit     int64 `json:"TotalNetLimit"`
+	TotalNetWeight    int64 `json:"TotalNetWeight"`
+	EnergyUsed        int   `json:"EnergyUsed"`
+	EnergyLimit       int   `json:"EnergyLimit"`
+	TotalEnergyLimit  int64 `json:"TotalEnergyLimit"`
+	TotalEnergyWeight int64 `json:"TotalEnergyWeight"`
+}
+
+type GetAccountStruct struct {
+	Address               string `json:"address"`
+	Balance               int64  `json:"balance"`
+	NetUsage              int    `json:"net_usage"`
+	CreateTime            int64  `json:"create_time"`
+	LatestOprationTime    int64  `json:"latest_opration_time"`
+	FreeNetUsage          int    `json:"free_net_usage"`
+	LatestConsumeTime     int64  `json:"latest_consume_time"`
+	LatestConsumeFreeTime int64  `json:"latest_consume_free_time"`
+	AccountResource       struct {
+		EnergyUsage                             int   `json:"energy_usage"`
+		LatestConsumeTimeForEnergy              int64 `json:"latest_consume_time_for_energy"`
+		AcquiredDelegatedFrozenBalanceForEnergy int64 `json:"acquired_delegated_frozen_balance_for_energy"`
+	} `json:"account_resource"`
+	OwnerPermission struct {
+		PermissionName string `json:"permission_name"`
+		Threshold      int    `json:"threshold"`
+		Keys           []struct {
+			Address string `json:"address"`
+			Weight  int    `json:"weight"`
+		} `json:"keys"`
+	} `json:"owner_permission"`
+	ActivePermission []struct {
+		Type           string `json:"type"`
+		ID             int    `json:"id"`
+		PermissionName string `json:"permission_name"`
+		Threshold      int    `json:"threshold"`
+		Operations     string `json:"operations"`
+		Keys           []struct {
+			Address string `json:"address"`
+			Weight  int    `json:"weight"`
+		} `json:"keys"`
+	} `json:"active_permission"`
+	FrozenV2 []struct {
+		Type string `json:"type,omitempty"`
+	} `json:"frozenV2"`
+	AcquiredDelegatedFrozenBalanceForBandwidth int64 `json:"acquired_delegated_frozen_balance_for_bandwidth"`
+	AssetV2                                    []struct {
+		Key   string `json:"key"`
+		Value int    `json:"value"`
+	} `json:"assetV2"`
+	FreeAssetNetUsageV2 []struct {
+		Key   string `json:"key"`
+		Value int    `json:"value"`
+	} `json:"free_asset_net_usageV2"`
+	AssetOptimized bool `json:"asset_optimized"`
+}
+
 type GetBlockByLimitNextStruct struct {
 	Block []struct {
 		BlockID     string `json:"blockID"`

@@ -16,6 +16,82 @@ var DTRCNodeAPI = TRCNodeAPI{
 	NodeAddr: "http://34.87.43.172:8090",
 }
 
+func (obj *TRCNodeAPI)GetAssetIssueList() (*GetAssetIssueListStruct,error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", obj.NodeAddr + "/wallet/getassetissuelist", nil)
+	if err != nil {
+		return nil,err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil,err
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil,err
+	}
+	var v GetAssetIssueListStruct
+	err = json.Unmarshal(bodyText, &v)
+	if err != nil {
+		return nil,err
+	}
+	return &v,nil
+}
+
+func (obj *TRCNodeAPI)GetAccountResource(address string) (*GetAccountResourceStruct,error) {
+	client := &http.Client{}
+	address = Base58checkToHexString(address)
+	var data = strings.NewReader(fmt.Sprintf(`{"address": "%v"}`, address))
+	req, err := http.NewRequest("POST", obj.NodeAddr + "/wallet/getaccountresource", data)
+	if err != nil {
+		return nil,err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil,err
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil,err
+	}
+	var v GetAccountResourceStruct
+	err = json.Unmarshal(bodyText, &v)
+	if err != nil {
+		return nil,err
+	}
+	return &v,nil
+}
+
+func (obj *TRCNodeAPI)GetAccount(address string) (*GetAccountStruct,error) {
+	client := &http.Client{}
+	address = Base58checkToHexString(address)
+	var data = strings.NewReader(fmt.Sprintf(`{"address": "%v"}`, address))
+	req, err := http.NewRequest("POST", obj.NodeAddr + "/wallet/getaccount", data)
+	if err != nil {
+		return nil,err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil,err
+	}
+	defer resp.Body.Close()
+	bodyText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil,err
+	}
+	var v GetAccountStruct
+	err = json.Unmarshal(bodyText, &v)
+	if err != nil {
+		return nil,err
+	}
+	return &v,nil
+}
+
 func (obj *TRCNodeAPI)GetBlockByLimitNext(startNum int64, endNum int64) (*GetBlockByLimitNextStruct,error) {
 	client := &http.Client{}
 	var data = strings.NewReader(fmt.Sprintf(`{"startNum": %v, "endNum": %v}`, startNum, endNum))
